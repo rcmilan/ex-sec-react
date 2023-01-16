@@ -1,26 +1,12 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { LoginUser } from "../../apis";
 
 const logginWrapper: React.CSSProperties = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
 };
-
-type Credentials = {
-  username: string | undefined;
-  password: string | undefined;
-};
-
-async function loginUser(credentials: Credentials) {
-  return fetch("http://localhost:8080/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-  }).then((data) => data.json());
-}
 
 const Login = ({ setToken }: any) => {
   const [username, setUserName] = useState<string>();
@@ -29,7 +15,7 @@ const Login = ({ setToken }: any) => {
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    const token = await loginUser({
+    const token = await LoginUser({
       username,
       password,
     });
