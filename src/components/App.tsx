@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import Preferences from "./Preferences";
 import Login from "./Login";
+import useToken from "../hooks/useToken";
 
 const wrapperStyle: React.CSSProperties = {
   padding: "20px",
 };
 
 function App() {
-  const [token, setToken] = useState();
+  const { token, setToken } = useToken();
 
   if (!token) {
-    return <Login setToken={setToken}/>;
+    return <Login setToken={setToken} />;
   }
 
   return (
