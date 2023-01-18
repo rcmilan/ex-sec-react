@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { LoginUser } from "../../apis";
+import AuthService from "../../services/auth.service";
 
 const logginWrapper: React.CSSProperties = {
   display: "flex",
@@ -15,7 +15,7 @@ const Login = ({ setToken }: any) => {
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    const token = await LoginUser({
+    const token = await AuthService.loginUser({
       username,
       password,
     });
