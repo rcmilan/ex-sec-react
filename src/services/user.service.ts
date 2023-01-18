@@ -1,21 +1,26 @@
 import authHeader from "./auth-header";
+import { API_URL } from "../helpers/constants";
 
-const API_URL = "http://localhost:8080/api/test/";
+const url = `${API_URL}/api/test/`;
 
-export default class UserService {
+class UserService {
   getPublicContent() {
-    return fetch(API_URL + "all", { method: "GET" });
+    return fetch(url + "all", { method: "GET" });
   }
 
   getUserBoard() {
-    return fetch(API_URL + "user", { method: "GET", headers: authHeader() });
+    return fetch(url + "user", { method: "GET", headers: authHeader() });
   }
 
   getModeratorBoard() {
-    return fetch(API_URL + "mod", { method: "GET", headers: authHeader() });
+    return fetch(url + "mod", { method: "GET", headers: authHeader() });
   }
 
   getAdminBoard() {
-    return fetch(API_URL + "admin", { method: "GET", headers: authHeader() });
+    return fetch(url + "admin", { method: "GET", headers: authHeader() });
   }
 }
+
+const userService = new UserService();
+
+export default userService;

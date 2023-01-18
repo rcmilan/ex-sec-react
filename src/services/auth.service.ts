@@ -1,20 +1,20 @@
 import { USER_LOCALSTORAGE_KEY } from "../helpers/constants";
+import { API_URL } from "../helpers/constants";
 
-const API_URL = "http://localhost:8080/api/auth/";
+type Credentials = {
+  username: string | undefined;
+  password: string | undefined;
+};
 
-export default class AuthService {
-  async login(username: string, password: string) {
-    const data = { username, password };
-
-    return fetch(`${API_URL}/signin`, {
+class AuthService {
+  async login(credentials: Credentials) {
+    return fetch(`${API_URL}/login`, {
       method: "POST",
-      body: JSON.stringify(data),
-    }).then((response: any) => {
-      if (response.data.accessToken) {
-        localStorage.setItem(USER_LOCALSTORAGE_KEY, JSON.stringify(response.data));
-      }
-      return response.data;
-    });
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credentials),
+    }).then((data) => data.json());
   }
 
   logout() {
@@ -28,7 +28,7 @@ export default class AuthService {
       password,
     };
 
-    return fetch(API_URL + "signup", {
+    return fetch(`${API_URL}/api/auth/signup`, {
       method: "POST",
       body: JSON.stringify(data),
     }).then((response: any) => response.data);
@@ -38,3 +38,7 @@ export default class AuthService {
     return JSON.parse(localStorage.getItem(USER_LOCALSTORAGE_KEY)!);
   }
 }
+
+const authService = new AuthService();
+
+export default authService;

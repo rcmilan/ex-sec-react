@@ -15,7 +15,7 @@ const Login = ({ setToken }: any) => {
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    const token = await AuthService.loginUser({
+    const token = await AuthService.login({
       username,
       password,
     });
